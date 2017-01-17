@@ -18,7 +18,7 @@ module MachineLearning
       positive? ? :positive : :negative
     end
 
-    # private
+    private
 
     def positive_score
       MachineLearning::Tweet.ppb * positive_word_score
@@ -38,7 +38,6 @@ module MachineLearning
 
     def word_score(scope)
       scoring = ->(w) { (MachineLearning::Unigram.score_for(scope, w) / ( scope.sum(:count) + MachineLearning::Unigram.distinct_count )) }
-      #tokenized.collect(&scoring).reduce(&:*)
       tokenized.collect(&scoring).reduce(&:*)
     end
 
